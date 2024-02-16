@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <head>
+    <title>Corona Virus Tracker application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+  </head>
+  <style>
+  
+   h1.btn.btn-danger {
+  
+ 	margin: 0px;
+    border-radius: 0;
+	}
+	
+	button {
+	padding: 0px;
+	}
+  
+  </style>
+
+  <body>
+  	<div class="p-3 mb-2 bg-info text-dark">
+    <h1>Corona Virus Tracker application</h1><br>
+    <p>This Application List the Current number of cases reported across the globe</p>
+    <div class="jumbotron">
+	<form th:action="@{/viewchart2}" method="get">
+    	<button type="submit"><h1 th:text = "${totalDeathsReported}" class="btn btn-danger" width="100%"></h1></button>
+	</form>
+	<p class="lead">Total cases reported as of Today</p>
+    </div>
+    </div>
+    <div class="container">
+ <table class="table table-success table-striped-columns"  id="myTable" border="1">
+       <thead>   
+         <tr >
+        <th>State</th><
+        <th>Flag</th>
+        <th>Country</th>
+        <th>Total Deaths Reported</th>
+         <th>Changes Since Last Day</th>
+      </tr>
+      </thead>
+      <tr th:each="locationstate : ${LocationStates}">
+        <td th:text="${locationstate.state}"></td>
+          <td id="flag" th:style="'background-image: url('+ @{'/images/flags/' + ${locationstate.country}} +'.png  );'"></td>
+           
+        <td th:text="${locationstate.country}"></td>
+        <td th:text="${locationstate.latestTotalDeaths}">0</td>
+        <td th:text="${locationstate.differFromPrevay}">0</td>
+          
+         
+      </tr>
+    </table>
+   
+    <table class="table table-striped" id="myTable" border="1">
+    <thead>   
+      <tr class="table-row bg-dark text-light">       
+        <th>State</th>
+        <th>Flag</th>
+        <th>Country</th>
+        <th>Total Deaths Reported</th>
+        <th>Changes Since Last Day</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+      </tr>
+     </thead>
+     <tbody>
+      <tr th:each="locationstate : ${LocationStates}">
+        <td th:text="${locationstate.state}"></td>        
+        <!-- <td th:style="'background-image: url('+ @{'/images/flags/' + ${locationstate.country}} +'.png);'"></td> -->
+        <td id="flag" th:style="'background-image: url('+ @{'/images/flags/' + ${locationstate.country}} +'.png);'"></td>
+        <td th:text="${locationstate.country}"></td>
+        <td th:text="${locationstate.latestTotalDeaths}"></td>
+        <td th:text="${locationstate.differFromPrevay}"></td>
+        <td th:text="${locationstate.latitude}"></td>
+        <td th:text="${locationstate.longitude}"></td>
+        <span th:text="${locationStates.latitude}"></span>
+    
+      </tr>
+     </tbody>
+    </table>  
+    
+    </div>
+  </body>
+
+</html>
